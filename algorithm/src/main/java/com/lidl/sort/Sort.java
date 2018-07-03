@@ -18,11 +18,14 @@ public class Sort {
         System.out.println("排序前的数组为：" + Arrays.toString(array));
 //        bubbleSort(array);
 //        selectSort(array);
+        selectSort1(array);
 //        insertSort(array);
+//        insertSort1(array);
 //        shellSort(array);
+//        shellSort1(array);
 //        quickSort(array, 0, array.length - 1);
 //        heapSort(array, array.length);
-        mergerSort(array, array.length);
+//        mergerSort(array, array.length);
         System.out.println("排序后的数组为：" + Arrays.toString(array));
     }
 
@@ -51,6 +54,7 @@ public class Sort {
             System.out.print("\n");
         }
     }
+
 
     /**
      * 选择排序
@@ -85,6 +89,42 @@ public class Sort {
     }
 
     /**
+     * 常用于取序列中最大最小的几个数时。
+     * <p>
+     * (如果每次比较都交换，那么就是交换排序；如果每次比较完一个循环再交换，就是简单选择排序。)
+     * <p>
+     * 遍历整个序列，将最小的数放在最前面。
+     * 遍历剩下的序列，将最小的数放在最前面。
+     * 重复第二步，直到只剩下一个数。
+     * <p>
+     * <p>
+     * 如何写成代码：
+     * <p>
+     * 首先确定循环次数，并且记住当前数字和当前位置。
+     * 将当前位置后面所有的数与当前数字进行对比，小数赋值给key，并记住小数的位置。
+     * 比对完成后，将最小的值与第一个数的值交换。
+     * 重复2、3步。
+     *
+     * @param a 数组
+     */
+    private static void selectSort1(int[] a) {
+        int length = a.length;
+        for (int i = 0; i < length; i++) {              // 循环次数
+            int key = a[i];
+            int position = i;
+            for (int j = i + 1; j < length; j++) {      // 选出最小的值和位置
+                if (a[j] < key) {
+                    key = a[j];                         // 最小的值
+                    position = j;                       // 最小的位置
+                }
+            }
+            a[position] = a[i];                         // 交换位置
+            a[i] = key;
+        }
+    }
+
+
+    /**
      * 插入排序
      * （1）首先对数组的前两个数据进行从小到大的排序；
      * （2）接着将第3个数据与排好的前两个数据比较，将第3个数据插入合适的位置；
@@ -112,6 +152,41 @@ public class Sort {
     }
 
     /**
+     * 直接插入排序
+     * 经常碰到这样一类排序问题：把新的数据插入到已经排好的数据列中。
+     * <p>
+     * 将第一个数和第二个数排序，然后构成一个有序序列
+     * 将第三个数插入进去，构成一个新的有序序列。
+     * 对第四个数、第五个数……直到最后一个数，重复第二步。
+     * <p>
+     * <p>
+     * 如何写成代码：
+     * <p>
+     * 首先设定插入次数，即循环次数，for(int i=1;i<length;i++)，1个数的那次不用插入。
+     * 设定插入数和得到已经排好序列的最后一个数的位数。insertNum和j=i-1。
+     * <p>
+     * 从最后一个数开始向前循环，如果插入数小于当前数，就将当前数向后移动一位。
+     * <p>
+     * 将当前数放置到空着的位置，即j+1。
+     *
+     * @param a 数组
+     */
+    private static void insertSort1(int[] a) {
+        int length = a.length;                      // 数组长度，将这个提取出来是为了提高速度。
+        int insertNum;                              // 要插入的数
+        for (int i = 1; i < length; i++) {          // 插入的次数
+            insertNum = a[i];                       // 要插入的数
+            int j = i - 1;                          // 已经排序好的序列元素个数
+            while (j >= 0 && a[j] > insertNum) {    // 序列从后到前循环，将大于insertNum的数向后移动一格
+                a[j + 1] = a[j];                    // 元素移动一格
+                j--;                                // 元素前一个位置
+            }
+            a[j + 1] = insertNum;                   // 将需要插入的数放在要插入的位置。
+        }
+    }
+
+
+    /**
      * shell(希尔排序)
      * （1）将有n个元素的数组分成n/2个数字序列，第1个数据和第n/2+1个数据为一对，....；
      * （2）一次循环使每一个序列对排好顺序；
@@ -121,10 +196,8 @@ public class Sort {
      * @param a 数组
      */
     private static void shellSort(int[] a) {
-        int i, j;
-        int r, temp;
+        int i, j, r, temp;
         int x = 0;
-
         for (r = a.length / 2; r >= 1; r /= 2) {
             for (i = r; i < a.length; i++) {
                 temp = a[i];
@@ -143,6 +216,42 @@ public class Sort {
             System.out.print("\n");
         }
     }
+
+    /**
+     * 希尔排序
+     * 对于直接插入排序问题，数据量巨大时。
+     * <p>
+     * 将数的个数设为n，取奇数k=n/2，将下标差值为k的书分为一组，构成有序序列。
+     * 再取k=k/2 ，将下标差值为k的书分为一组，构成有序序列。
+     * 重复第二步，直到k=1执行简单插入排序。
+     * <p>
+     * <p>
+     * 如何写成代码：
+     * <p>
+     * 将数的个数设为n，取奇数k=n/2，将 下标差值 为k的树分为一组，构成有序序列。
+     * 再取k=k/2 ，将 下标差值 为k的数分为一组，构成有序序列。
+     * 重复第二步，直到k=1执行简单插入排序。
+     *
+     * @param a 数组
+     */
+    private static void shellSort1(int[] a) {
+        int d = a.length;
+        while (d != 0) {
+            d = d / 2;
+            for (int x = 0; x < d; x++) {                           // 分的组数
+                for (int i = x + d; i < a.length; i += d) {         // 组中的元素，从第二个数开始
+                    int j = i - d;                                  // j为有序序列最后一位的位数，第一位开始有序
+                    int temp = a[i];                                // 要插入的元素
+                    while (j >= 0 && temp < a[j]) {                 // 从后往前遍历。
+                        a[j + d] = a[j];                            // 向后移动d位
+                        j -= d;
+                    }
+                    a[j + d] = temp;
+                }
+            }
+        }
+    }
+
 
     /**
      * 快速排序
@@ -317,6 +426,7 @@ public class Sort {
     /**
      * 合并排序
      * 合并排序算法就是将多个有序
+     *
      * @param a
      * @param n
      */
