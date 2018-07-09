@@ -96,6 +96,6 @@ public class MathQuestion {
     }
 
     public static void main(String[] args) {
-        Question.solitaire();
+        MathQuestion.solitaire();
     }
 }
