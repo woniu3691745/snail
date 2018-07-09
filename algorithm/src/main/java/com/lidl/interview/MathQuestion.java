@@ -1,12 +1,12 @@
 package com.lidl.interview;
 
 /**
- * 排序
+ * 数学问题
  *
  * @author 李栋梁
  * @date 2018/7/4 下午4:06
  */
-public class Question {
+public class MathQuestion {
 
     /**
      * 求1-2+3-4+5-6+7......+n的值
