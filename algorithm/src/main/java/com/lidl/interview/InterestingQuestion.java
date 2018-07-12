@@ -75,15 +75,35 @@ public class InterestingQuestion {
         }
     }
 
+    /**
+     * 汉诺塔问题
+     * 利用汉诺塔函数求取不同盘子数的移动步骤
+     *
+     * @param n  盘子的数量
+     * @param p1 第一个
+     * @param p2 第二个
+     * @param p3 第三个
+     */
+    private static void hannoi(int n, int p1, int p2, int p3) {
+        if (n == 1) {
+            System.out.println("盘子从 " + p1 + " 移到 " + p3);
+        } else {
+            hannoi(n - 1, p1, p3, p2);
+            System.out.println("盘子从 " + p1 + " 移到 " + p3);
+            hannoi(n - 1, p2, p1, p3);
+        }
+    }
+
     public static void main(String[] args) {
 //        InterestingQuestion.bjbj(100, 100);
-        int[] len1 = {0};
-        int[] len2 = {0};
-        int[] len3 = {0};
-        int[] len4 = {0};
-        int[] len5 = {0};
-        int[] len = {0};
-        InterestingQuestion.wjgj(len1, len2, len3, len4, len5, len);
-        System.out.printf("井深：%d\n", len[0]);
+//        int[] len1 = {0};
+//        int[] len2 = {0};
+//        int[] len3 = {0};
+//        int[] len4 = {0};
+//        int[] len5 = {0};
+//        int[] len = {0};
+//        InterestingQuestion.wjgj(len1, len2, len3, len4, len5, len);
+//        System.out.printf("井深：%d\n", len[0]);
+        hannoi(3, 1, 2, 3);
     }
 }
