@@ -95,7 +95,34 @@ public class MathQuestion {
         }
     }
 
+
+    /**
+     * 输出字符串中最长的数字字符串和它的长度.
+     * 如果有相同长度的串，则要一块儿输出，但是长度还是一串的长度.
+     */
+    private static void findBastLong() {
+        String str = "abcd12345ed125ss123058789";
+        StringBuilder str1 = new StringBuilder("a");
+        for (char a : str.toCharArray()) {
+            if (a <= '9' && a >= '0') {
+                str1.append(a);
+            } else {
+                str1.append("a");
+            }
+        }
+        String[] as = str1.toString().split("a");
+        int len = as[0].length();
+        for (String a : as) {
+            if (a.length() != 0 && a.length() > len) {
+                len = a.length();
+            }
+        }
+
+        System.out.println(as[len] + " " +as[len].length());
+    }
+
     public static void main(String[] args) {
-        MathQuestion.solitaire();
+//        MathQuestion.solitaire();
+        MathQuestion.findBastLong();
     }
 }
